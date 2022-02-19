@@ -18,8 +18,7 @@ class Solution {
             let reversedIndex = zeroStartedWidth - x
             rightResult[reversedIndex] = max(rightResult[reversedIndex + 1] - 1, dpPoints[reversedIndex])
         }
-        
-        
+
         for (x, currentPoint) in points.enumerated() {
             //            print("\(x)")
             //            print("\(currentPoint) + max(\(leftResults[x]) - \(x), \(rightResult[x]) + \(x))")
@@ -28,6 +27,7 @@ class Solution {
         }
         pointResults.append(result)
     }
+
     func maxPoints(_ points: [[Int]]) -> Int {
         let width = points[0].count
         for (y, pointsInY) in points.enumerated() {
