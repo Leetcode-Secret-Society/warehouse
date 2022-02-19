@@ -1,0 +1,45 @@
+class SnapshotArray:
+
+    def __init__(self, length: int):
+        self.length=length
+        self.valueArray=[[(0,0)] for _ in range(length)]
+        self.currentSnapId=0
+        
+    def set(self, index: int, val: int) -> None:
+        latestSnap, latestValue = self.valueArray[index][-1]
+        if latestSnap==self.currentSnapId:
+            self.valueArray[index][-1]=(self.currentSnapId,val)
+        else:
+            self.valueArray[index].append((self.currentSnapId,val))
+            
+
+    def snap(self) -> int:
+        self.currentSnapId+=1
+        return self.currentSnapId-1
+
+    def get(self, index: int, snap_id: int) -> int:
+        snapList = self.valueArray[index]
+        if snap_id>snapList[-1][0]:
+            return snapList[-1][1]
+        
+        
+        left, right = 0, len(snapList)-1
+        while left <= right:
+            mid = (right + left) // 2
+            index, val = snapList[mid]
+            if snap_id == index:
+                return val
+            if snap_id>index and snap_id<snapList[mid+1][0]:
+                return val
+            if snap_id > index:
+                left = mid + 1
+            else:
+                right = mid - 1
+        #return self.dictArray[index][snap_id]
+
+
+# Your SnapshotArray object will be instantiated and called as such:
+# obj = SnapshotArray(length)
+# obj.set(index,val)
+# param_2 = obj.snap()
+# param_3 = obj.get(index,snap_id)
