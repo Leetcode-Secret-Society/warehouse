@@ -1,23 +1,15 @@
-
-# Definition for a Node.
-class Node:
-    def __init__(self, val: int = 0, left: 'Node' = None, right: 'Node' = None, next: 'Node' = None):
+# Definition for a binary tree node.
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
         self.val = val
         self.left = left
         self.right = right
-        self.next = next
-        
-
 class Solution:
-    def connect(self, root: 'Optional[Node]') -> 'Optional[Node]':
-        node = root
-        while node and node.left:#search horizontal level
-            print("*"+str(node.val))
-            next = node.left
-            while node: #search parrell level
-                print(node.val)
-                node.left.next = node.right
-                node.right.next = node.next and node.next.left #return node.next.left if node.next exists
-                node = node.next
-            node = next
-        return root
+    def mergeTrees(self, root1: Optional[TreeNode], root2: Optional[TreeNode]) -> Optional[TreeNode]:
+        if root1 and root2:
+            root = TreeNode(root1.val + root2.val)
+            root.left = self.mergeTrees(root1.left, root2.left)
+            root.right = self.mergeTrees(root1.right, root2.right)
+            return root
+        else:
+            return root1 or root2 #return existing one
