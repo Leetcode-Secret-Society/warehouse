@@ -12,5 +12,9 @@ class Solution:
             history.add(p)
             if p in ppid_dic:
                 stack += ppid_dic[p]
+#         TLE, no hash table
+#         for index, value in enumerate(ppid):
+#             if value == p:
+#                 stack.append(pid[index])
         
         return history
