@@ -1,0 +1,40 @@
+class Solution:
+    def smallestCommonElement(self, mat: List[List[int]]) -> int:
+        #Binary Search
+        def binarySearch(content: List, target) -> bool:
+            left = 0
+            right = len(content) - 1
+
+            while left <= right:
+                mid = (left + right) //2
+                if content[mid] == target:
+                    return True
+                elif content[mid] < target:
+                    left = mid + 1
+                else :
+                    right = mid - 1
+            return False
+        
+        for value in mat[0]:
+            founded = True
+            for item_list in mat[1:] :
+                if not binarySearch(item_list, value):
+                    founded = False
+                    break
+            
+            if founded:
+                return value
+        return -1
+                
+        
+        #HashTable
+        dic = defaultdict(lambda: 0)
+        for item_list in mat :
+            for value in item_list:
+                dic[value] += 1
+        
+        for key, value in dic.items():
+            if value == len(mat):
+                return key
+            
+        return -1
