@@ -3,7 +3,7 @@ class Solution:
         flight_dict = defaultdict(list)
         for from_, to, price in flights:
             flight_dict[from_].append((from_, to, price))
-        most_stops_on_node = [float('inf') for _ in range(n)]
+        most_stops_on_node = [float('inf') for _ in range(n)] # the key to avoid cycle
         heap = [[0, 0, src]]
         most_stops_on_node[src]=0
         #print(flight_dict)
