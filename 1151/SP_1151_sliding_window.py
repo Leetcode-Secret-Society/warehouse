@@ -27,3 +27,19 @@ class Solution:
                 max_ones_count = max(max_ones_count, ones_count)
             # print(ones_count)
         return num_all_ones - max_ones_count
+
+#simplify the code
+class Solution:
+    def minSwaps(self, data: List[int]) -> int:
+        data.append(0)
+        one_count = data.count(1)
+        current_one_count = data[0:one_count].count(1)
+        result = current_one_count
+        for i in range(1, len(data) - one_count):
+            if data[i - 1] == 1:
+                current_one_count -= 1
+            if data[i + one_count - 1] == 1:
+                current_one_count += 1
+                result = max(result, current_one_count)
+            
+        return one_count - result
