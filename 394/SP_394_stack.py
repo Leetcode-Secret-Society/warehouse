@@ -5,7 +5,6 @@ class Solution:
         stack = []
         current_digit = ""
         digits = []
-        contains_brace = False
         for i in range(len(s)):
             c = s[i]
             if c == "[":
