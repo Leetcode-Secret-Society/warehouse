@@ -10,8 +10,4 @@ class Solution:
             nice_num = num - int(str(num)[::-1])
             result += nice_num_map[nice_num]
             nice_num_map[nice_num] += 1
-        return result % (10 **9 + 7)
-
-
-
-
+        return result % (10 ** 9 + 7)
