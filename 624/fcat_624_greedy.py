@@ -2,24 +2,13 @@ from typing import List
 
 class Solution:
     def maxDistance(self, arrays: List[List[int]]) -> int:
-        largest = [(float('-inf'), -1), (float('-inf'), -1)]
-        smallest = [(float('inf'), -1), (float('inf'), -1)]
-        for array_index in range(len(arrays)):
-            if arrays[array_index][-1] > largest[0][0]:
-                largest[1] = largest[0]
-                largest[0] = (arrays[array_index][-1], array_index)
-            elif arrays[array_index][-1] > largest[1][0]:
-                largest[1] = (arrays[array_index][-1], array_index)
+        maximum = arrays[0][-1]
+        minimum = arrays[0][0]
+        result = 0
+        for i in range(1, len(arrays)):
+            result = max(result, arrays[i][-1] - minimum, maximum - arrays[i][0])
+            maximum = max(maximum, arrays[i][-1])
+            minimum = min(minimum, arrays[i][0])
+        return result
 
-            if arrays[array_index][0] < smallest[0][0]:
-                smallest[1] = smallest[0]
-                smallest[0] = (arrays[array_index][0], array_index)
-            elif arrays[array_index][0] < smallest[1][0]:
-                smallest[1] = (arrays[array_index][0], array_index)
-
-        if largest[0][1] != smallest[0][1]:
-            return largest[0][0] - smallest[0][0]
-        else:
-            return max(largest[0][0] - smallest[1][0], largest[1][0] - smallest[0][0])
-
-print(Solution().maxDistance([[-3,-2],[-2,-2,-2]]))
+print(Solution().maxDistance([[-6,-3,-1,1,2,2,2],[-10,-8,-6,-2,4],[-2],[-8,-4,-3,-3,-2,-1,1,2,3],[-8,-6,-5,-4,-2,-2,2,4]]))
