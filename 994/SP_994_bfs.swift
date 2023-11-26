@@ -8,6 +8,7 @@ class Solution {
         for i in 0..<grid.count {
             for j in 0..<grid[0].count {
                 if grid[i][j] == 2 {
+                    visited.insert([i,j])
                     stack.append([i,j])
                     count += 1
                 }
@@ -18,14 +19,12 @@ class Solution {
         }
         let directions = [[1,0],[0,1],[-1,0],[0,-1]]
         while let popped = stack.popLast() {
-            if visited.contains(popped) == false {
-                visited.insert(popped)
-                for direction in directions {
-                    let toRotten = [popped[0]+direction[0], popped[1]+direction[1]]
-                    if toRotten[0] >= 0 && toRotten[0] < grid.count && toRotten[1] >= 0 && toRotten[1] < grid[toRotten[0]].count {
-                        if grid[toRotten[0]][toRotten[1]] == 1 && visited.contains(toRotten) == false && stack.contains(toRotten) == false {  //there should be better way to avoid these check
-                            nextStack.append(toRotten)
-                        }
+            for direction in directions {
+                let toRotten = [popped[0]+direction[0], popped[1]+direction[1]]
+                if toRotten[0] >= 0 && toRotten[0] < grid.count && toRotten[1] >= 0 && toRotten[1] < grid[toRotten[0]].count {
+                    if grid[toRotten[0]][toRotten[1]] == 1 && visited.contains(toRotten) == false {
+                        visited.insert(toRotten)
+                        nextStack.append(toRotten)
                     }
                 }
             }
